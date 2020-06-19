@@ -1,4 +1,5 @@
 
+# DEPRECATED: Use <https://github.com/good-loop/wwappbase.js>
 
 base: 
     symlink this folder into your project's js source to get this "Good-Loop standard" js.
