@@ -1,4 +1,35 @@
 
+/**
+ * TODO fix trailing ,
+ * 
+ * {
+	"KEY PEOPLE": [
+		{
+			"name": "Xi Jinping",
+ json2 {
+	"KEY PEOPLE": [
+		{
+			"name": "Xi Jinping",
+}]}
+
+
+TODO fix key
+cleanJson2 SyntaxError: Unexpected token '}', ..."			"TOPIC"}]}" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at cleanJson2 (clean-json.js:94:8)
+    at cleanJson (clean-json.js:23:10)
+    at AnswerViaWebSocket.<anonymous> (HomePage.jsx:74:24) json {
+	"KEY PEOPLE": [
+		{
+			"name": "Xi Jinping",
+			"TOPIC json2 {
+	"KEY PEOPLE": [
+		{
+			"name": "Xi Jinping",
+			"TOPIC"}]}
+
+ */
+
 function cleanJson(json) {
 	// is it valid already?
 	try {
@@ -53,7 +84,6 @@ function cleanJson2(json) {
 			continue;
 		}
 		if (current === "{") {
-			console.log("start value need", c);
 			stack.push("=");
 		}
 		if (c==='"') {
@@ -82,7 +112,7 @@ function cleanJson2(json) {
 		// console.warn("cleanJson2", "unexpected", c, "json", json.substring(0, i));		
 	}
 	let json2 = json;	
-	console.log("cleanJson2", json, stack);
+	// console.log("cleanJson2", json, stack);
 	for(let i=stack.length-1; i>-1; i--) {
 		let si = stack[i];
 		if (si === "{") json2 += "}";
