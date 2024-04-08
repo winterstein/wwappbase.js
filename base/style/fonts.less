@@ -1,0 +1,102 @@
+@import 'breakpoints.less';
+// Good-Loop Fonts
+// NB: adunit duplicates this in mixins.less -- why? Because we really care about file size in adunit, so lets keep it separate
+
+// Branding details: see g-drive Branding & fonts: https://drive.google.com/drive/folders/0Bz6LfeTw60y3UXlIbVVPRmlpNnc
+
+/* To setup: symlink the fonts folder from wwappbase.js into web/fonts
+e.g.
+	cd web
+	ln -s ../src/js/base/base-fonts .
+(assuming src/js/base is already a symlink to wwappbase.js/base)
+*/
+
+
+@font-face {
+	font-family: "ABC Social";
+	src: url('/base-fonts/ABCSocial-Regular.woff2') format('woff2'),
+	url('/base-fonts/ABCSocial-Regular.woff') format('woff');
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "ABC Social";
+	src: url('/base-fonts/ABCSocial-RegularItalic.woff2') format('woff2'),
+	url('/base-fonts/ABCSocial-RegularItalic.woff') format('woff');
+	font-style: italic;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "ABC Social";
+	src: url('/base-fonts/ABCSocial-Medium.woff2') format('woff2'),
+	url('/base-fonts/ABCSocial-Medium.woff') format('woff');
+	font-style: normal;
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: "ABC Social";
+	src: url('/base-fonts/ABCSocial-MediumItalic.woff2') format('woff2'),
+	url('/base-fonts/ABCSocial-MediumItalic.woff') format('woff');
+	font-style: italic;
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: "ABC Social";
+	src: url('/base-fonts/ABCSocial-Bold.woff2') format('woff2'),
+	url('/base-fonts/ABCSocial-Bold.woff') format('woff');
+	font-style: normal;
+	font-weight: 700;
+}
+@font-face {
+	font-family: "ABC Social";
+	src: url('/base-fonts/ABCSocial-BoldItalic.woff2') format('woff2'),
+	url('/base-fonts/ABCSocial-BoldItalic.woff') format('woff');
+	font-style: italic;
+	font-weight: 700;
+}
+
+
+.header-font {
+	font-family: "ABC Social", sans-serif;
+	font-weight: 700;
+}
+.sub-header-font {
+	font-family: "ABC Social", sans-serif;
+	font-weight: 500;
+}
+.body-font {
+	font-family: "ABC Social", sans-serif;
+	font-weight: 400;
+}
+
+body {
+	.body-font();
+}
+
+// BS makes `code` red like its an error - make it more normal
+body code {
+	color: inherit;
+}
+// ??
+
+/** Opposite of .small
+NB: BS defines .small for textm and -sm -lg for some widgets, but not .large for text */
+.large {
+	font-size: 1.25em;
+	@media @width-xl {
+		font-size: 1.4em;
+	}
+}
+
+code {
+	text-transform: none !important;
+}
+
+.overflow-ellipsis {
+	text-overflow: ellipsis;
+}
+

@@ -1,0 +1,54 @@
+.ListLoad {
+	margin-bottom: 0.5em;
+	// separate filter box from results
+	.filter {
+		padding-bottom: 0.5em;
+		border-bottom: 1px solid #333;
+	}
+
+	.LL-buttons {
+		justify-content: space-evenly;
+		margin: 0.5em;
+	}
+	
+	.pagination {
+		justify-content: center; // Generally looks more graceful when buttons overflow in narrowest spaces
+	}
+}
+
+
+.ListLoad > div {
+	&:not(:first-child) {
+		margin-top: 0.5em;
+	}
+}
+
+.ListItemWrapper {
+	// border-top: 1px solid #333;
+}
+
+.ListItem {
+	display: inline-flex;
+	flex-direction: row;
+	width: 100%;
+	> *:not(:first-child) {
+		margin-left: 0.5em;
+	}
+	.id {
+		font-family: monospace;
+	}
+}
+.ListItem.btn-space {
+	width: calc(100% - 4em); // HACK: leave some space for buttons
+}
+
+.TaskList {
+	margin-left: 1em;
+	margin-bottom: 1em;
+	border-left: 1px solid #666;
+	padding-left: 1em;
+	background: white;
+	height: 100%;
+	max-width: 350px;
+	min-width: 200px;
+}

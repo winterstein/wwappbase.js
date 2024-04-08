@@ -1,0 +1,52 @@
+
+/**
+BS 5 off-canvas, backport for BS 4
+*/
+
+.offcanvas.show {
+	transform: none;
+	visibility: visible;
+}
+
+// HACK
+@avoidNavbar: 50px;
+
+.offcanvas-start {
+	top: @avoidNavbar;
+	left: 0;
+	width: 400px;
+	border-right: 1px solid rgba(0,0,0,.2);
+	transform: translateX(-100%);
+	box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.5);
+}
+
+.offcanvas {
+	position: fixed;
+	bottom: 0;
+	z-index: 1045;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	visibility: hidden;
+	background-color: #fff;
+	background-clip: padding-box;
+	outline: 0;
+	transition: transform .3s ease-in-out;
+}
+
+/* HACK open button */
+.offcanvas-toggle {
+	position: fixed;
+	top:@avoidNavbar;
+	left:0px;
+}
+.offcanvas-header .offcanvas-toggle {
+	position:absolute;
+	left:auto;
+	right:0.5rem;
+	top:0.5rem;
+}
+
+.Editor3ColLayout {
+
+}

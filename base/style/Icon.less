@@ -1,0 +1,52 @@
+
+@import "./colours.less";
+
+.emoji {
+	// Aim for standard-ish display
+	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+	// What does this do in practice?? ref: https://www.w3.org/TR/css-fonts-4/#font-variant-emoji-prop
+	font-variant-emoji: emoji;
+	font-size: 2em;
+}
+
+.emoji.logo-sm {
+	font-size: 1em;
+}
+
+.emoji.logo-lg {
+	font-size: 6em;
+}
+
+/**
+	This fixes the issue that an emoji can have weird colours with unpredictable UX effects
+	To do different colours, apply more css :'(
+*/
+.emoji-black {
+	color: transparent;
+	text-shadow: 0 0 0 black;
+}
+.emoji-white {
+	color: transparent;
+	text-shadow: 0 0 0 white;
+}
+.emoji-grey {
+	color: transparent;
+	text-shadow: 0 0 0 @grey;
+}
+// TODO BS colours
+.emoji-success {
+	color: transparent;
+	text-shadow: 0 0 0 green;
+}
+.emoji-info {
+	color: transparent;
+	text-shadow: 0 0 0 blue;
+}
+.emoji-warning {
+	color: transparent;
+	text-shadow: 0 0 0 yellow;
+}
+.emoji-danger {
+	color: transparent;
+	text-shadow: 0 0 0 red;
+}

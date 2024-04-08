@@ -1,0 +1,84 @@
+
+// fixed 1st column row with scrolling
+@sticky-col-width: 200px;
+
+.SimpleTable {
+	/** by default, dont allow too big columns */
+	td {
+		max-width: 33vw;
+		overflow: auto;
+		overflow-wrap: anywhere; // eg dont let urls bork the layout
+	}
+
+	tr.depth2, tr.depth3, tr.depth4, tr.depth5, tr.depth6, tr.depth7 {
+		td:first-child { /* make the before content sit to the left of the text without a linebreak */
+			flex-direction: row;
+			display: flex;
+		}
+		td:first-child::before {
+			margin-right:0.2rem;
+		}
+	}
+	/* styling for tree children */
+	 tr.depth2 {
+		 font-size: 90%;
+		 td:first-child::before {
+			margin-left:0.1rem;
+			content:'>';
+		}
+	 }
+	 tr.depth3 {
+		font-size: 80%;
+		td:first-child::before {
+			margin-left:0.45rem; // NB: includes counteracting the reduced padding
+			content:'>>';
+		}
+		td {
+			padding: 0.5rem; // NB: down from 0.75rem BS standard for table cells
+		}
+	}
+	tr.depth4, tr.depth5, tr.depth6, tr.depth7 {
+		font-size: 75%;
+		td:first-child::before {
+			margin-left:0.65rem; // NB: includes counteracting the reduced padding
+			content:'>>>';
+		}
+		td {
+			padding: 0.4rem;
+		}
+	}
+	// For a caller-provided total row
+	.topRow {
+		font-weight: bold;
+	}
+	/* e.g. "Page < 1 > of 3" */
+	.pager {
+		a {
+			text-decoration: none;
+		}
+	}
+} // ./SimpleTable
+
+// less p spacing (cos td already has padding)
+.table p {
+	padding-bottom: 0.25em; // (reduced from 1rem)
+}
+// hack: handle a common case that can mess up layout: urls in a table
+.SimpleTable .table a {
+	word-break: break-word;
+}
+
+.SimpleTable .selected {
+	background-color: #e7f0fd; //NB: pale blue used by G sheets
+}
+
+.SimpleTable.scroller {
+	width:100%;
+	height:100%;
+
+	.scroll-div {
+		width:100%;
+		height:100%;
+		overflow: scroll;
+	}
+}

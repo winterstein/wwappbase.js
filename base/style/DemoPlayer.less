@@ -1,0 +1,276 @@
+
+// FIXME move out of base/style
+
+// FIXME why is this not handled by fonts.less
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import (css) url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+.format-picker button {
+	padding-top: 1em;
+	margin: 1em 1em;
+	font-size: 1.2em;
+}
+
+.device-picker button {
+	padding: 0 1em;
+	max-width: 8em;
+}
+
+.device-picker svg {
+	max-width: 60px;
+	max-height: 3.5em;
+	margin: 0 auto;
+	width: 100%;
+	pointer-events: none; // Passes click to parent button
+	&#desktop {
+		max-width: 6em; // Desktop (laptop) svg is slightly larger that the others
+	}
+}
+
+.picker-button {
+	color: #000;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 0.15em;
+	font-family: 'Montserrat', sans-serif;
+
+	border: none;
+	display: inline-block;
+	position: relative;
+	outline: none!important;
+	background-color: #fff;
+
+	// Standardises device picker buttons' height (SVG ones)
+	&:not(.format-picker) {
+		height: 5em;
+	}
+
+		// Make it clear this won't do anything useful
+	&.disabled {
+		color: lightgray!important;
+		pointer-events: none!important;
+	}
+
+	// This creates the red underline under each button. It's got width of zero
+	// and will grow to width 100% when hovered.
+	&:after {
+		background: none repeat scroll 0 0 transparent;
+		bottom: 0;
+		content: "";
+		display: block;
+		height: 2px;
+		left: 50%;
+		position: absolute;
+		background: #830000;
+		transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		width: 0;
+	}
+
+	&:hover {
+		// Override boostrap bt hover styles
+		background-color: transparent!important;
+		&:not(.current) { // 
+			color: #000!important;
+		}
+	}
+
+	&:hover:after { 
+		width: 100%; 
+		left: 0; 
+	}
+
+	&.current {
+		color: #830000;
+		font-weight: 800;
+		&:after {
+			width: 100%;
+			left: 0;
+		}
+	}
+
+	// Shadow to pop out available svg buttons
+	&:not(.disabled) {
+		svg {
+			filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.4));
+		}
+	}
+}
+
+.alert {
+	max-width: 600px;
+	margin: 0 auto;
+	margin-bottom: 1em;
+}
+
+.demo-div-container {
+	width: 100%!important;
+}
+
+.red-bg, .half-bg {
+	width: 100%;
+	position: relative;
+	&:before, &:after {
+		content: '';
+		display: block;
+		height: 100%;
+		width: 50vw;
+		position: absolute;
+		top: 0;
+		z-index: -1;
+	}
+
+	&:before {
+		right: 50%;
+	}
+
+	&:after {
+		left: 50%;
+	}
+}
+
+.red-bg {
+	&:before, &:after {
+		background-color: @gl-red;
+	}
+}
+
+.half-bg {
+	&:before, &:after {
+		background-image: linear-gradient(to bottom, white 50%, @gl-red 50%);
+	}
+}
+
+.device-container {
+	// Let text-center handle horizontal positioning - we DON'T want this fullwidth.
+	// Size will be determined by the width or height set on frame-img below, and the image's own aspect
+	display: inline-block;
+	position: relative; // allow children to use this as sizing/position reference
+
+	.device-screen-bg {
+		position: absolute;
+		z-index: 0;
+		background-color: #fff;
+	}
+
+	.ad-container {
+		position: absolute;
+		z-index: 1;
+	}
+
+	// Image for the social format. This will be removed once we add the porper social demo
+	.social-mockup {
+		width: 101%;
+		margin-left: -1%;
+	}
+
+	.frame-img {
+		position: relative;
+		pointer-events: none;
+		z-index: 2
+	}
+
+	&.landscape {
+		width: 100%;// Take width of BS container
+		max-width: 800px;
+		.device-screen-bg {
+			left: 3%;
+			top: 6%;
+			width: 94%;
+			height: 87%;
+		}
+		.ad-container {
+			left: 7%;
+			top: 7%;
+			width: 86%;
+		}
+		.frame-img {
+			width: 100%; // height comes from image aspect
+		}
+	}
+
+	&.desktop {
+		width: 100%;// Take width of BS container
+		.device-screen-bg {
+			display: none;
+		}
+		.ad-container {
+			width: 64%;
+			left: 19%;
+			top: 18%;
+		}
+		.frame-img {
+			width: 100%; // height comes from image aspect
+			z-index: 0; // not transparent (yet)
+		}
+	}
+
+	&.portrait {
+		height: 80vh;// Fit inside browser window
+		.device-screen-bg {
+			left: 6%;
+			top: 3%;
+			width: 88%;
+			height: 94%;
+			border-radius: 5vh;
+		}
+		.ad-container {
+			left: 7%;
+			top: 7%;
+			width: 86%;
+		}
+		.frame-img {
+			height: 100%; // width comes from image aspect
+		}
+	}
+}
+
+.ad-sizer {
+	position: relative;
+	overflow: hidden; /* prevent margin collapse with aspectifier */
+}
+
+.ad-sizer .goodloopad, .ad-sizer iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.ad-sizer .vpaid-container {
+	width: 100%;
+	height: 100%;
+}
+
+.ad-sizer.landscape .aspectifier {
+	margin-top: 56.25%
+}
+
+.ad-sizer.portrait .aspectifier {
+	margin-top: 177.77%
+}
+
+.ad-sizer.square .aspectifier {
+	margin-top: 100%
+}
+
+.fake-feed, .social-ad {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.fake-feed {
+	background-color: pink;
+}
+
+// Off-set ad to slide it in when mounted.
+.social-ad {
+	background-color: black;
+	transform: translateY(100%);
+	transition-delay: 100ms;
+	transition: transform 0.4s ease-in;
+}
+
+.social-ad.show {
+	transform: translateY(0);
+}

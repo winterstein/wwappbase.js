@@ -1,0 +1,46 @@
+/**
+ * PropControlCode generates a set of whitespace-filled <span>s using Prism.js and some extra processing.
+ * These additional rules:
+ * - Line up the spans with the textarea and draw them in front of it (with interaction disabled)
+ * - Set their background colour to the text colour
+ * - Apply mix-blend-mode: multiply, so they tint the white text behind them.
+ */
+.form-group.code {
+	code {
+		display: block;
+		// Tab size doesn't inherit to the <code> element from .syntax-highlighting
+		tab-size: 2 !important;
+	}
+	textarea {
+		display: block; // Default is inline-block, which causes phantom 0.5em bottom margin (due to line-height: 1.5)
+		background-color: black;
+		color: white;
+		width: 100%;
+		border: none;
+		padding: 0.5em;
+	}
+	pre {
+		position: relative; // Positioning ref for textarea and highlighting div
+		padding: 0;
+		margin: 0;
+	}
+	.highlighter {
+		padding: 0.5em;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background-color: transparent;
+		overflow-y: scroll; // Add scrollbar so inner width matches textarea
+		resize: vertical; // Add resize handle so scrollbar height matches textarea
+		.line {
+			mix-blend-mode: multiply;
+		}
+		.token {
+			background-color: currentColor;
+			white-space: break-spaces;
+		}
+	}
+}

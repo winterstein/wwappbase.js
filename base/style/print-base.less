@@ -1,0 +1,16 @@
+/**
+Include this in ALL media, screen or print, as it also hides print-only bits */
+
+@media print {
+	.noprint {
+		display: none !important;
+	}
+	.print-only {
+		display: block !important;
+	}
+}
+@media screen {
+	.print-only {
+		display: none !important;
+	}
+}

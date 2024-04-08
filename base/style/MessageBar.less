@@ -1,0 +1,24 @@
+
+.MessageBar {
+	position: fixed;
+	/* below dialogs, but above the page base */
+	z-index: 101;
+}
+
+.MessageBar .alert {
+	overflow-x: scroll;
+	max-height: 25em; // keep tall messages at manageable size
+	position: relative; // reference for close button position
+	.close {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+	}
+}
+
+// Test and local: put it in the corner out of the way.
+.MessageBar.side {
+	right: 0;
+	bottom: 0;
+	width: 25em;
+}

@@ -1,0 +1,368 @@
+// max width - why 40em??
+@form-input-width: 40em;
+
+@preview-margin: 5px;
+@preview-height: 80px;
+
+// Used to signify "transparent" or "no colour chosen"
+.stripe-bg() {
+	background: repeating-linear-gradient(-45deg, #555, #555 6px, #ccc 6px, #ccc 12px);
+}
+
+
+// Define height of form-compact elements for reuse
+.form-compact-height() {
+	height: calc(1em + 0.7rem + 2px);
+}
+
+/* a more compact form layout than BS standard (see also form-inline) */
+.form-compact {
+	.form-group {
+		margin-bottom: 0.85rem;
+	}
+
+	label {
+		margin-bottom: 0rem;
+	}
+	.form-control:not(.btn-lg, .btn-sm),
+	.btn:not(.btn-lg, .btn-sm) {
+		padding: 0.15rem 0.35rem 0.15rem 0.35rem;
+		line-height: 1;
+		.form-compact-height();
+	}
+
+	// Let the colour box fill the whole form control
+	.form-control[type="color"] {
+		padding: 0;
+	}
+
+	.input-group-append,
+	.input-group-prepend {
+		.form-compact-height();
+	}
+
+	// HACK: Card headers that use .btn styling don't get fixed height so they can expand with tall content e.g. video preview
+	.card-header.btn {
+		height: unset;
+	}
+}
+
+/* ./form-compact */
+
+
+
+/* checkbox layout vs sizing - BS default looks a bit broken */
+
+// Make small well, _smaller_
+.form-control-sm {
+	height: 1.3em; 
+	line-height: 1;
+}
+select.form-control-sm { // NB: select gets too squished by the height above (seen April 2023)
+	height: 1.5em; 
+	padding: 0rem 0.25rem; // reduce padding from 0.25 0.5
+}
+
+.form-group {
+	.input-group.input-group-sm {
+
+		// NB: lots of selectors to beat the BS default rules
+		.form-control {
+			height: calc(1.3em + 0.4rem + 2px);
+			line-height: 1.3;
+			padding-top: 0.5rem;
+		}
+
+		.input-group-prepend,
+		.input-group-append,
+		.btn {
+			height: calc(1.3em + 0.4rem);
+			line-height: 1.3;
+		}
+	}
+}
+
+// why override??
+.form-control-lg {
+	height: 1.5em;
+}
+
+.form-group.Money input,
+.form-group.email input,
+.form-group.imgUpload input,
+.form-group.videoUpload input,
+.form-group.textarea textarea {
+	max-width: @form-input-width;
+}
+
+.form-group.imgUpload,
+.form-group.videoUpload,
+.form-group.bothUpload {
+
+	// normalise height of preview boxes + dropzone
+	.video-thumbnail,
+	.img-thumbnail,
+	.DropZone {
+		margin: @preview-margin;
+		height: @preview-height;
+	}
+
+	// distribute width between dropzone and preview box
+	@dropzone-width: @preview-height * 1.2;
+	.DropZone {
+		margin-left: 0;
+		width: @dropzone-width;
+	}
+	.preview-container {
+		// Weirdness: If you remove this explicit height it decides to be 100px - and Chrome inspector can't say why.
+		height: @preview-height + @preview-margin + @preview-margin;
+		max-width: calc(100% - (@dropzone-width + @preview-margin + @preview-margin));
+		img, video {
+			margin-right: 0;
+		}
+	}
+	// let the white silhouette logo control show that the user hasn't picked a brand colour
+	.img-thumbnail.stripe-bg {
+		.stripe-bg();
+	}
+	.video-thumbnail {
+		width: unset;
+	}
+}
+
+
+.keyset {
+	.keys {
+		margin-bottom: 1em;
+	}
+
+	.key {
+		padding: 0.25em;
+		border: 1px solid grey;
+		border-radius: 0.25em;
+		margin-right: 0.25em;
+	}
+
+	.remove-key {
+		background-color: black;
+		color: white;
+		margin-left: 0.25em;
+		border-radius: 0.25em;
+		cursor: pointer;
+	}
+}
+
+.pills .form-control input {
+	border: none;
+
+	&:focus {
+		border: none;
+	}
+}
+/** PropControlList */
+.list {
+	ul.rowStyle {
+		padding: 0;
+		li {
+			border: 1px solid #ced4da; // BS grey
+			border-radius: 0.25rem; // BS input rounding
+			padding: .375rem .75rem; // BS input padding
+			margin: 0.25em;
+			display: flex;
+			flex-direction: row;
+		}
+	}
+}
+
+/** Make the inner wrapper of the autocomplete element a position reference for the dropdown menu */
+.autocomplete>div {
+	position: relative;
+}
+
+/**
+This mimics Bootstrap's form-control on-focus.
+You can apply it to, well, anything.
+*/
+.focus {
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+	margin: -1px; //counteract the border, so adding this class does not affect page layout
+}
+
+/* aggressively hide filtered inputs! */
+.nomatch {
+	display: none;
+}
+
+
+/* Special styling for colour controls */
+.color-control {
+	position: relative; // use as position ref for the overlay
+
+	.overlay {
+		pointer-events: none;
+		position: absolute;
+		z-index: 9; // place in front of the .input-group
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+
+		background-color: transparent;
+		font-weight: bold;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		text-shadow: 1px 1px 1px black;
+
+		&.light-bg {
+			color: black;
+			text-shadow: 1px 1px 1px white;
+		}
+
+		&.no-color {
+			// "unset" marker to differentiate no-colour from #000000
+			.stripe-bg();
+		}
+	}
+}
+
+/* ./color-control */
+
+
+
+
+.data-item-control {
+	.dropdown-sizer {
+		position: relative; // This is a size/position reference for the floating dropdown list
+		display: flex; // input box and "Create" button (if present) side-by-side
+	}
+
+	// Ellipsize text label if it would overflow
+	.btn, .btn-group {
+		overflow: hidden;
+		max-width: 100%;
+	}
+	.btn.clear, .btn-create {
+		flex-shrink: 0; // let item badge or text input shrink, but never x/create button
+	}
+	.DataItemBadge {
+		max-width: 100%;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		> * {
+			vertical-align: middle; // Line up text, dummy logo .span, 🗙 button
+		}
+		.logo {
+			border: 1px solid #ddd;
+		}
+	}
+
+	// Non-link preview shouldn't look clickable
+	span.preview .DataItemBadge {
+		cursor: default;
+	}
+
+	// The autocomplete dropdown list
+	.items-dropdown {
+		display: block;
+		position: absolute;
+		/* min/max width: size to the text input - but also allow overflow for small input vs showing the names */
+		min-width: 100%;
+		max-width: 20rem;
+		top: 100%;
+		margin-top: 0.25em; // Small gap between input and dropdown
+		left: 0;
+		z-index: 999; // Place in front of random single-digit z-index Bootstrap elements below
+
+		// Individual items in the list
+		.DataItemBadge {
+			display: block;
+			margin: 0;
+			padding: 0.25em 0;
+			cursor: pointer;
+			&:not(:first-child) {
+				border-top: 1px solid #ddd;
+			}
+		}
+	}
+}
+
+// .form-compact container scrunches everything
+.form-compact .data-item-control {
+	.btn {
+		padding: 0;
+	}
+
+	.DataItemBadge {
+		height: 100%;
+		padding: 0 0.25rem;
+		.logo {
+			height: 100%;
+			border: none;
+			margin-right: 0.25rem;
+			// Non-wide logos don't need to expand to occupy the full 2rem
+			width: unset;
+			max-width: 2rem;
+		}
+	}
+}
+/* ./data-item-control */
+
+
+/* Modals */
+.modal-content {
+	//height: 90vh; // Why?? This looks bad for e.g. the Add-a-Line chart editor in MoneyScript
+
+	/* if text is in in the modal, make it take up enough space */
+	textarea, text {
+		max-width: 100% !important;
+		width: 100%;
+	}
+}
+
+
+// Toggle switch control
+.form-group .toggle-switch {
+	.btn {
+		width: 1.5rem; // fix size of slider (inner .btn)
+		transition: margin 0.1s linear; // Slide smoothly
+		pointer-events: none; // Container to catch clicks, take focus, have "active" highlight
+	}
+}
+
+
+
+// Badge to mark a PropControl with unpublished edits
+.btn.data-modified {
+	background: repeating-linear-gradient(-45deg, #000, #000 4px, #ffc107 4px, #ffc107 8px);
+}
+.btn, .form-compact .btn {
+	&.data-modified {
+		padding: 0;
+		width: 1em;
+		height: 1em;
+	}
+}
+.data-modified-details {
+	.diff-line {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 100%;
+	}
+	> :not(.diff-val) {
+		flex-shrink: 0;
+	}
+	.diff-val {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}

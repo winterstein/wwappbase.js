@@ -1,0 +1,86 @@
+
+
+
+// HM: alot of this overlaps with BS TODO use that instead of defining our own
+// https://getbootstrap.com/docs/5.0/utilities/flex/
+// https://getbootstrap.com/docs/4.5/utilities/flex/
+
+
+// Useful for making BootStrap columns all the same height
+.flex {
+	display: flex;
+// 	/* center ??is this a good default?? */
+// 	> * {
+// 		margin: auto;
+// 	}
+}
+
+.flex-column {
+	.flex();
+	flex-direction: column;
+}
+
+.flex-row {
+	.flex();
+	flex-direction: row;
+}
+
+/** a flex row which does not expand to full width */
+.flex-row-compact {
+	display: flex;
+	flex-direction: row;
+}
+
+
+.flex-row-reverse {
+	.flex();
+	flex-direction: row-reverse;
+}
+
+// Will take up as much space in the container as possible
+.flex-grow {
+	.flex();
+	flex: 1 !important; // important so it can beat BS form-group
+}
+
+.flex-vertical-align {
+	.flex-column();
+	justify-content: center;
+}
+
+.flex-centre {
+	align-items: center;
+}
+
+.flex-align-items-start {
+	align-items: start;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+/** shorthand for use flex to do vertical centering */
+.v-centre {
+	.flex();
+	.flex-vertical-align();
+}
+
+/** center vertical and horizontal
+How does Bootstrap do this?? Maybe use that?? */
+.center {
+	display:flex; 
+	align-items:center;
+	justify-content:center;
+}
+
+/* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+.flexbox-1row {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center; // flex-start | flex-end | center | space-between | space-around;
+}
+
+.flex-space-between {
+	justify-content: space-between;
+}

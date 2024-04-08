@@ -1,0 +1,22 @@
+// Expand / squeeze pagination items to fill container
+// ...once we measure their natural size & can estimate how many will fit.
+.pagination-controls {
+	visibility: hidden;
+	&:not(.measured) {
+		.page-item:not(:first-child) {
+			position: absolute;
+		}
+	}
+	&.measured {
+		visibility: visible;
+		// squeeze
+		.page-item {
+			flex-shrink: 1;
+			flex-grow: 1;
+			word-wrap: normal;
+		}
+		.page-link {
+			width: 100%;
+		}
+	}
+}

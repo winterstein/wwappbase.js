@@ -1,0 +1,21 @@
+.form-group.list {
+	ul {
+		list-style-type: none; // No bullet
+		padding-inline-start: 0; // Remove standard <ul> left-padding
+	}
+	li {
+		position: relative; // Position ref for floating delete button
+		padding-inline-end: 0.5em; // Make room for edge buttons
+	}
+
+	button.delete-item {
+		position: absolute;
+		top: 0.5em;
+		right: 0;
+	}
+}
+// .delete-button-light { done in code
+// 	button.delete-item {
+
+// 	}
+// }

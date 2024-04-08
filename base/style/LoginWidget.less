@@ -1,0 +1,56 @@
+@import "colours.less";
+
+.login-guts {
+	.login-divs {
+		display: flex;
+	}
+
+	/**
+	wide login buttons
+	*/
+	.btn.signin {
+		width:100%;
+		text-align: left;
+	}
+}
+
+.switch-verb {
+	float: right; // Place alongside the login button
+	text-align: right;
+}
+
+
+// Bootstrap XS class devices: modal doesn't like scrolling so make the login widget compact.
+@media (max-width: 576px) {
+	.login-modal {
+		// Hide labels on email/password fields, they have placeholder text or pre-filled values
+		#loginByEmail {
+			label {
+				display: none;
+			}
+		}
+		// Make header more compact
+		.modal-title {
+			.logo {
+				height: 2.5em;
+				width: 2.5em;
+			}
+			font-size: 1rem;
+			line-height: 1.25;
+		}
+	}
+}
+
+
+// ??delete
+// @media only screen and (max-width : 768px) {
+// 	.login-guts .login-divs { display: inherit; }
+// }
+
+// @media only screen and (max-width : 768px) {
+// 	.login-guts .login-divs .login-email { margin-right: 0px; }
+// }
+
+// @media only screen and (max-width : 768px) {
+// 	.login-guts .login-divs .login-social { margin-top: 1em; }
+// 

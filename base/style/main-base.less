@@ -1,0 +1,214 @@
+// Common Styling for Good-Loop web-apps
+// Please only put genuinely shared things into the shared css. Thank you
+
+@import "breakpoints.less";
+@import "colours.less";
+@import "fonts.less";
+@import "bootstrap-copy.less";
+@import "flex.less"; // TODO Use BS flex utility classes instead of defining our own
+@import "gridbox.less";
+
+// spinner
+@import "animation.less";
+
+// Widgets
+@import "BG.less";
+@import "Editor3ColLayout.less";
+@import "Misc.less";
+@import "Icon.less";
+@import "ListLoad.less";
+@import "LoginWidget.less";
+@import "MDText.less";
+@import "MessageBar.less";
+@import "PropControl.less";
+@import "SimpleTable.less";
+@import "WizardProgressWidget.less";
+@import "footer.less";
+@import "Ticker.less";
+@import "BSCarousel.less";
+@import "Toast.less";
+
+// how is this not always the default? Seen Dec 2019 with BS4
+a {
+	cursor: pointer;
+}
+
+.TODO {
+	display: none;
+}
+
+.avoid-navbar {
+	margin-top: 70px;
+}
+
+// BS default has too much padding on the navbar logo
+.navbar-brand {
+	padding: 2px;
+	// We set our own navbar height and it might change...
+	// ...so constrain image height to a safe proportion of that
+	img { 
+		min-height: 50%;
+		max-height: 48px; // don't allow a giant image
+		width: unset; // don't make wide logos tiny
+	}
+}
+/** an extra small button (btn-sm is too big for a 1-line-height setting*/
+.btn.btn-xs {
+	padding: .1rem 0.2rem;
+	line-height: 1;
+}
+/** I miss BS3's btn-default in BS4 -- note btn-outline-dark is a decent replacement */
+.btn-default {
+	color: #343a40;
+	border-color: #343a40;
+	background-color: #f8f9fa !important;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active {
+	color: #333;
+	background-color: #e6e6e6;
+}
+.btn-default:hover {
+	border-color: #adadad;
+}
+.btn-default:focus {
+	border-color: #8c8c8c;
+}
+.btn-default:active {
+	background-image: none;
+	border-color: #adadad;
+}
+// Generic for concave button
+.btn.inset {
+	box-shadow: 0px 2px 3px rgba(0,0,0,0.3) inset;
+}
+/* avoid large X with odd spacing on badges */
+.badge .close {
+	font-size: inherit;
+}
+
+.alert.small { // reduce whitespace for small
+	padding: 0.35rem 0.6rem;
+	margin-bottom: 0.35rem;
+	line-height: 1.2;
+}
+
+// @deprecated Backwards compatibility: BS4 has dropped pull-left in favour of float-left
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+
+.no-margin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.no-margin-bottom {
+	margin-bottom: 0px;
+}
+
+// FIXME Why are these rules here? TODO move them to a more specific place.
+// TODO prefer BS sizes eg -lg over -large
+// TODO prefer "logo logo-sm" over just "logo" for consistency with BS
+.logo {
+	width: 4em;
+	height: 4em;
+}
+.logo-xs, img.logo-xsmall, .logo.logo-xs {
+	width: 1em;
+	height: 1em;
+}
+.logo-sm, img.logo-small, .logo.logo-sm {
+	width: 2em;
+	height: 2em;
+}
+.logo-lg, img.logo-large, .logo.logo-lg {
+	width: 6em;
+	height: 6em;
+}
+.logo-xl, .logo-xlarge, .logo.logo-xl {
+	width: 8em;
+	height: 8em;
+}
+img {
+	&.logo, &.logo-xs, &.logo-xsmall, &.logo-sm, &.logo-small, &.logo-lg, &.logo-large, &.logo-xl, &.logo-xlarge {
+		object-fit: contain; // allow square container but keep proportions
+	}
+}
+
+/** a generic .disabled effect */
+.disabled {
+	opacity: 75%;
+}
+
+/** marker for dev-only debug/admin elements that users do not see. See DevOnly.jsx */
+.dev-only {
+	position: relative; // Reference for marker
+	background-color: #f0fff0;
+	padding: 0.15rem;
+	margin: -0.15rem;
+	border: 1px dashed #ddd;
+	> * {
+		opacity: 75%;
+	}
+	.dev-only-marker {
+		font-size: 0.66rem;
+		font-family: sans-serif;
+		position: absolute;
+		bottom: 0;
+		right: 0.2rem;
+		// Don't block interaction & improve visibility if element overlaps some content
+		pointer-events: none;
+		opacity: 0.5;
+	}
+}
+/** End marker for dev-only */
+
+
+// MainDivBase puts every page in a Row (proper practice within a Container) - default to filling horizontally
+.row .page {
+	width: 100%;
+}
+
+#mainDiv.nav-open {
+	@media @width-mobile {
+		overflow: hidden;
+		height: 100vh;
+	}
+}
+
+// full-width -- Break out of a BS .container
+// Use double-sided margins instead for more nuance
+// .full-width {
+// 	width: 100vw;
+// }
+
+// HACK: use margin-left linked with the BS .container media rules to go full-width in pure css.
+@media (min-width: 576px) {
+	.container .full-width {
+		margin-left: calc(0.5 * (540px + 15px - 100vw));
+		margin-right: calc(0.5 * (540px + 15px - 100vw));
+	}
+}
+@media (min-width: 768px) {
+	.container .full-width {
+		margin-left: calc(0.5 * (720px + 15px - 100vw));
+		margin-right: calc(0.5 * (720px + 15px - 100vw));
+	}
+}
+@media (min-width: 992px) {
+	.container .full-width {
+		margin-left: calc(0.5 * (960px + 15px - 100vw));
+		margin-right: calc(0.5 * (960px + 15px - 100vw));
+	}
+}
+@media (min-width: 1200px) {
+	.container .full-width {
+		margin-left: calc(0.5 * (1140px + 15px - 100vw));
+		margin-right: calc(0.5 * (1140px + 15px - 100vw));
+	}
+}

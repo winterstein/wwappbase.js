@@ -1,0 +1,89 @@
+// A copy of package.json with comments & questions
+{
+  "name": "G-L_Project_NPM_Skeleton",
+  "version": "0.1.0",
+  "description": "My app",
+  "author": "Daniel Winterstein",
+  "repository": {
+    "url": "https://github.com/foo/bar",
+    "type": "git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^3.3.2",	// Where do we use this??
+    "easy-enums": "^1.1.8",
+    "hashmap": "^2.4.0",
+    "intl": "^1.2.5",
+    "jquery": "^3.6.0",
+    "js-cookie": "^2.2.1",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "promise-value": "^1.2.13",
+    "react": "^16.13.1",
+    "react-chartjs2": "^1.2.1",	// Where do we use this??
+    "react-dom": "^16.13.1",
+    "react-dropzone": "^11.3.2",
+    "react-markdown": "5.0.3",	// v6 changes the API and our checkboxes break
+    "react-scroll": "^1.7.12",	// Where do we use this??
+    "react-spring": "^8.0.27",	// Where do we use this??
+    "reactstrap": "^8.9.0",
+    // "sjtest": "^0.4.9", mostly replaced by assert.js 
+    "you-again": "^0.8.8"
+	// Please do NOT put test modules, like jest and yargs, here. They go in devDependencies below.
+  },
+  "scripts": {
+	// gitstamp.sh records build info into a web-visible file
+    "compile": "webpack --config $PWD/webpack.config.js --progress --color && gitstamp.sh",
+    "compile-watch": "webpack --config $PWD/webpack.config.js --progress --color --watch",
+    "compile-watch-fast": "NO_PROD=true webpack --config $PWD/webpack.config.js --progress --color --watch",
+	// Jest and puppeteer work together
+    "test": "jest",	
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {	// TODO some of this must be obsolete
+    "@babel/core": "^7.14.5",
+    "@babel/eslint-parser": "^7.14.5",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.5",
+    "@babel/plugin-transform-typescript": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.7",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "babel-jest": "^27.0.2",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-const-enum": "^1.0.1",
+    "core-js": "^3.14.0",
+    "css-loader": "^5.2.6",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "intl": "^1.2.5",
+    "jest": "^27.0.4",
+    "jest-environment-puppeteer": "^5.0.4",
+    "jest-puppeteer": "^5.0.4",
+    "less": "^4.1.1",
+    "less-loader": "^9.1.0",
+    "mini-css-extract-plugin": "^1.6.0",
+    "puppeteer": "^1.5.0",
+    "regenerator-runtime": "^0.13.7",
+    "shelljs": "^0.8.4",
+    "typescript": "^4.3.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "yargs": "^17.0.1"
+  },
+  "jest": {
+    "preset": "jest-puppeteer",
+    "globals": {
+      "window": {}
+    }
+  }
+}

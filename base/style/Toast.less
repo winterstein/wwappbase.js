@@ -1,0 +1,60 @@
+@keyframes toast-intro {
+    0% {
+        transform: translate(-50%, 10rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes toast-outro {
+    0% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, 10rem);
+        opacity: 0;
+    }
+}
+
+@keyframes toast-logo-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.gl-toast {
+    background-color: @gl-darker-grey;
+    color: white;
+    padding: 0 1.5rem;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 9999;
+    bottom: 5rem;
+    left: 50%;
+    opacity: 0;
+
+    &.show {
+        animation: toast-intro 0.5s ease-in;
+        animation-fill-mode: forwards;
+    }
+
+    &.hide {
+        animation: toast-outro 0.5s ease-out;
+        animation-fill-mode: forwards;
+    }
+
+    .logo {
+        margin-right: 1rem;
+        width: 3rem;
+        animation: toast-logo-spin 2s linear;
+        animation-iteration-count: infinite;
+    }
+}

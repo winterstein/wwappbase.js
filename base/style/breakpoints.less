@@ -1,0 +1,53 @@
+// Breakpoint standards (based on Bootstrap values)
+// https://getbootstrap.com/docs/5.0/layout/breakpoints/
+// See also the isMobile() function
+
+
+// How to use: e.g.
+// @media @md-min { ... }
+// X-min selects X and larger
+// X-max selects X and smaller, e.g. @lg-max is tablets & phones
+/*
+
+
+xs - phone
+sm
+md
+lg - tablet / laptop
+xl - laptop / desktop
+xxl - widescreen
+
+See: https://getbootstrap.com/docs/5.1/layout/breakpoints/
+
+*/
+
+
+/** HACK: screen height -- why is this not 100vh?! It doesn't seem to be the navbar, which floats over the top
+*/
+@fullHeight: calc(100vh - 3.4em);
+
+/** select tablets and larger */
+@md-min: ~"(min-width: 767px)"; // -1px from bootstrap to avoid iPads
+/* Use for "mobile only" */
+@width-mobile: ~"(max-width: 767px)";
+/* Smallest mobile devices */
+@width-mobile-xs: ~"(max-width: 576px)";
+
+// Laptops / tablets
+@lg-min: ~"(min-width: 992px)";
+@lg-max: ~"(max-width: 992px)";
+
+// Desktops / large laptops
+@width-xl: ~"(min-width: 1200px)"; // deprecated
+@xl-max: ~"(max-width: 1200px)";
+@min-width-xl: ~"(min-width: 1200px)"; // deprecated
+@max-width-xl: ~"(max-width: 1399px)"; // deprecated
+
+/* widescreen desktops */
+@width-widescreen: ~"(max-width: 1400px)"; // deprecated
+
+// Based on highest width high-res mobile device tested
+@ipad-max: ~"(max-width: 1080px)";
+@ipad-min: ~"(min-width: 1080px)";
+
+

@@ -1,0 +1,352 @@
+
+/*
+
+The centralised go-to repository of all colours any Good-Loop app should require
+Individual apps can override and add to the colour list in their own files if neccessary,
+but if a colour can be sourced from here or added to here it should be! Keep it simple!
+Additionally, redesigns can happen, sometimes often - it makes it MUCH easier to execute those
+if the css remains centralised, especially colours.
+Make sure redesigns happen in these files!
+
+ALSO
+When adding or removing a colour, remember to keep track of the bootstrap-style class definitions as well
+They should all be commented with matching labels
+
+*/
+
+
+
+// Mixin templates for bootstrap-style classes
+.bg(@color) {
+	background-color: @color !important;
+}
+.color(@color) {
+	color: @color !important;
+	// Some CSS rules will override links inside headers with !important, make sure anything tagged with this class is covered
+	h1, h2, h3, h4, h5 {
+		& > a {
+			color: @color !important;
+		}
+	}
+}
+
+// See https://drive.google.com/drive/folders/0Bz6LfeTw60y3UXlIbVVPRmlpNnc
+
+
+
+// -------------------------------------------------------------------------------------------------------------
+//                                               COLO(U)RS
+// -------------------------------------------------------------------------------------------------------------
+
+// See https://drive.google.com/drive/u/0/folders/1Cu5QCy69aOa4dmmHnGBxl6_XWlj9pRuu
+// BUT that doesn't match these!
+
+// White (for compatibility)
+@gl-white: #fff;
+@gl-white-blue: #F7FAFC;
+
+// Red
+@gl-red: #770f00;
+@gl-light-red: #af2009;
+@gl-impact-red: #A12E1B;
+
+// Pink
+@gl-pink: #FBE1DE;
+@gl-light-pink: #FEF5F4;
+@ml-pink: #F7EAE8;
+
+// Orange
+@gl-orange: #af2009;
+@gl-light-orange: #e82316;
+@gl-pale-orange: #fcf5f4;
+
+// Blue
+@gl-dark-blue: #3c747c; // turquoise really
+@gl-muddy-blue: #286984;
+@gl-blue: #1894DA;
+@gl-desat-blue: #3488AB;
+@gl-dark-desat-blue: #427786;
+@gl-light-blue: #5ca5c0;
+@gl-impact-blue: #6da2b3;
+@gl-lighter-blue: #DEEEF3;
+// Grey
+@gl-darker-grey: #515151;
+@gl-dark-grey: #928b81; // Why is this NOT grey? Yellow??
+@gl-grey: #a1a1a1;
+@gl-light-grey: #E4E4E4;
+
+// Turquoise
+@gl-dark-turquoise: #286984; // same as gl-muddy-blue!
+@gl-turquoise: #51B6AA;
+
+// Standard white-ish colour for nice blank pages
+@gl-background-default: #f4f3f1; // gl-grey is too dark/yellow
+
+// Green Media page on website (TODO update to match My-Loop palette?)
+@greenmedia-darkgreen: #285E41;
+@greenmedia-green: #75B752;
+@greenmedia-lightgreen: #F2F8EF;
+
+// Green Media (My-Loop)
+@greenmedia-seagreen: #477b73;
+@greenmedia-darkcyan: #52727a;
+
+// Green Media (My-Loop) - misc TODO normalise
+@green-highlight: #698983;
+@blue-highlight: #69a4b9;
+@sea-blue: #76a1b7;
+
+@gl-impact-dark: #252A2F;
+
+
+// -------------------------------------------------------------------------------------------------------------
+//                                          BOOTSTRAP STYLE CLASSES
+// -------------------------------------------------------------------------------------------------------------
+
+// White
+.bg-gl-white {
+	.bg(@gl-white);
+}
+.bg-gl-white-blue {
+	.bg(@gl-white-blue);
+}
+.color-gl-white {
+	.color(@gl-white);
+}
+.color-gl-white-blue {
+	.color(@gl-white-blue);
+}
+
+// Red
+.bg-gl-red {
+	.bg(@gl-red);
+}
+.bg-gl-light-red {
+	.bg(@gl-light-red);
+}
+.bg-gl-impact-red {
+	.bg(@gl-impact-red);
+}
+.color-gl-red {
+	.color(@gl-red);
+}
+.color-gl-light-red {
+	.color(@gl-light-red);
+}
+.color-gl-impact-red {
+	.color(@gl-impact-red);
+}
+
+// Pink
+.bg-gl-pink {
+	.bg(@gl-pink);
+}
+.bg-gl-light-pink {
+	.bg(@gl-light-pink);
+}
+.color-gl-pink {
+	.color(@gl-pink);
+}
+.color-gl-light-pink {
+	.color(@gl-light-pink);
+}
+
+// Orange
+.bg-gl-orange {
+	.bg(@gl-orange);
+}
+.bg-gl-light-orange {
+	.bg(@gl-light-orange);
+}
+.bg-gl-pale-orange {
+	.bg(@gl-pale-orange);
+}
+.color-gl-orange {
+	.color(@gl-orange);
+}
+.color-gl-light-orange {
+	.color(@gl-light-orange);
+}
+.color-gl-pale-orange {
+	.color(@gl-pale-orange);
+}
+
+// Blue
+.bg-gl-dark-blue {
+	.bg(@gl-dark-blue);
+}
+.bg-gl-muddy-blue {
+	.bg(@gl-muddy-blue);
+}
+.bg-gl-blue {
+	.bg(@gl-blue);
+}
+.bg-gl-desat-blue {
+	.bg(@gl-desat-blue);
+}
+.bg-gl-light-blue {
+	.bg(@gl-light-blue);
+}
+.bg-gl-lighter-blue{
+	.bg(@gl-lighter-blue)
+}
+.color-gl-dark-blue {
+	.color(@gl-dark-blue);
+}
+.color-gl-muddy-blue {
+	.color(@gl-muddy-blue);
+}
+.color-gl-blue {
+	.color(@gl-blue);
+}
+.color-gl-desat-blue {
+	.color(@gl-desat-blue);
+}
+.color-gl-light-blue {
+	.color(@gl-light-blue);
+}
+
+// Grey
+.bg-gl-darker-grey {
+	.bg(@gl-darker-grey);
+}
+.bg-gl-dark-grey {
+	.bg(@gl-dark-grey);
+}
+.bg-gl-light-grey {
+	.bg(@gl-light-grey);
+}
+.color-gl-darker-grey {
+	.color(@gl-darker-grey);
+}
+.color-gl-dark-grey {
+	.color(@gl-dark-grey);
+}
+.color-gl-light-grey {
+	.color(@gl-light-grey);
+}
+
+// Turquoise
+.bg-gl-dark-turquoise {
+	.bg(@gl-dark-turquoise);
+}
+.bg-gl-turquoise {
+	.bg(@gl-turquoise);
+}
+.color-gl-dark-turquoise {
+	.color(@gl-dark-turquoise);
+}
+.color-gl-turquoise {
+	.color(@gl-turquoise);
+}
+
+// Background Default
+.bg-gl-background-default {
+	.bg(@gl-background-default);
+}
+.color-gl-background-default {
+	.color(@gl-background-default);
+}
+
+// Green Media (website)
+.bg-greenmedia-darkgreen {
+	.bg(@greenmedia-darkgreen);
+}
+.bg-greenmedia-green {
+	.bg(@greenmedia-green);
+}
+.bg-greenmedia-lightgreen {
+	.bg(@greenmedia-lightgreen);
+}
+.color-greenmedia-darkgreen {
+	.color(@greenmedia-darkgreen);
+}
+.color-greenmedia-green {
+	.color(@greenmedia-green);
+}
+.color-greenmedia-lightgreen {
+	.color(@greenmedia-lightgreen);
+}
+// Green Media (My-Loop)
+.bg-greenmedia-seagreen {
+	.bg(@greenmedia-seagreen);
+}
+.color-greenmedia-seagreen {
+	.color(@greenmedia-seagreen);
+}
+.bg-greenmedia-darkcyan {
+	.bg(@greenmedia-darkcyan);
+}
+.color-greenmedia-darkcyan {
+	.color(@greenmedia-darkcyan);
+}
+
+
+// For svgs
+.fill-gl-red {
+	fill: @gl-red;
+}
+
+
+// -------------------------------------------------------------------------------------------------------------
+//                                         DEPRECATED / TO BE REMOVED
+// -------------------------------------------------------------------------------------------------------------
+
+
+// @deprecated prefer text-dark/light-n over a hard-coded colour.
+// classes are horrible to find and fix all instances of - just a matter of time
+.black {
+	color: #000;
+}
+
+.white {
+	color: #fff;
+}
+
+// ======== The following are required as less-loader depends on them - but are they needed?? lemme kill ;-; ==========
+
+// Foreground and background styles
+// BS defines dark and light (nearly black/white) - see https://getbootstrap.com/docs/4.0/utilities/colors/
+// Add some more colour pairs which can be used as foreground/background combos
+@grey: #666;
+@dark0: #343a40; // BS
+@light0: #f8f9fa; // BS
+@dark1: @gl-dark-blue;
+@light1: @gl-light-grey;
+@dark2: @gl-red;
+@light2: @gl-light-blue;
+
+// NB: identical to BS text-light/dark and bg-light-dark -- but we add a "-0" for ease of use alongside dark/light pairs 1,2
+.text-dark-0 { color:@dark0; }
+.bg-dark-0 { background-color:@dark0; }
+.text-light-0 { color:@light0; }
+.bg-light-0 { background-color:@light0; }
+
+.text-dark-1 { color:@dark1; }
+.bg-dark-1 { background-color:@dark1; }
+.text-light-1 { color:@light1; }
+.bg-light-1 { background-color:@light1; }
+
+.text-dark-2 { color:@dark2; }
+.bg-dark-2 { background-color:@dark2; }
+.text-light-2 { color:@light2; }
+.bg-light-2 { background-color:@light2; }
+// NB: This gives 6 colour pairings - more than enough to colour any map :)
+
+// Old format, but again classes suck - so will take a while to correct
+.color-facebook {color: #3b5998;}
+.color-twitter {color:#4099ff;}
+.color-instagram {color:#e95950;}
+.color-linkedin {color:#0077B5;}
+.color-good-loop {color: @gl-red; }
+.bg-facebook {background-color: #3b5998;}
+.bg-twitter {background-color:#4099ff;}
+.bg-instagram {background-color:#e95950;}
+.bg-linkedin {background-color:#0077B5;}
+.bg-good-loop {background-color: @gl-red;}
+
+// // hack to make grayed out values consistent across website
+// Why? Bootstrap should define this as muted grey. ^DW May 2019
+// .text-muted {
+// 	color: #9c9c9c;
+// }
