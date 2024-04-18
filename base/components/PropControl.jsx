@@ -216,7 +216,7 @@ const diffProp = (path, prop) => {
 	if (!path || path.length < 3) return null; // Must be a DataItem or part of one
 	const [status, type, id] = path || [];
 	if (!status || status !== 'draft') return null; // Must be a draft
-	if (!type || C.TYPES.isUser(type)) return null; // Ignore USER type, no need for login props
+	if (!type || type==="User" || type==="USER") return null; // Ignore USER type, no need for login props
 
 	// Make sure both versions of the item are available locally
 	let pvDraft = getDataItem({ type, id, status: KStatus.DRAFT, swallow: true });

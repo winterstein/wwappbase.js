@@ -224,8 +224,8 @@ function ListLoad({ type, status, servlet, navpage,
 	const allItems = items; // Keep filtered but unpaginated list for e.g. CSV download
 	if (pageSize) items = paginate({ items, page, pageSize });
 
-	// more?
-	if (items && pageSize > items.length && list?.next) {
+	// more? NB: this thrashes the server for short sets of results?? Seen Apr 2024
+	if (false && items && pageSize > allItems.length && list?.next) {
 		let pvMore = getMoreDataList(list, getListParams, );
 		isLoading = !pvMore.resolved; // loading...
 	}
@@ -246,6 +246,18 @@ function ListLoad({ type, status, servlet, navpage,
 	const wrapperCommon = { type, servlet, navpage, unwrapped, checkboxes, canCopy, cannotClick, canDelete, notALink, itemClassName, onClickWrapper };
 	const itemCommon = { type, servlet, navpage, nameFn, items: allItems, sort: DataStore.getValue(['misc', 'sort'])};
 
+	// url for item? (used by ListItemWrapper)
+	const dataspaceFromUrl = DataStore.getValue('location', 'path')[1];
+	let getItemUrl = item => {
+		const id = getId(item);
+		let upath = [servlet, id];
+		if (dataspace && dataspace === dataspaceFromUrl) {
+			upath = [servlet, dataspace, id];
+		}
+		let itemUrl = modifyPage(upath, null, true)
+		return itemUrl;
+	};
+
 	return (<div className={space('ListLoad', className, ListItem === DefaultListItem ? 'DefaultListLoad' : null)} >
 		{canCreate && <CreateButton type={type} base={createBase} navpage={navpage} />}
 
@@ -260,7 +272,7 @@ function ListLoad({ type, status, servlet, navpage,
 		{hasCsv && <ListLoadCSVDownload items={allItems} csvColumns={csvColumns} hideCsvColumns={hideCsvColumns} />}
 		{pageControls}
 		{items.map((item, i) => (
-			<ListItemWrapper key={getId(item) || i} item={item} {...wrapperCommon} >
+			<ListItemWrapper key={getId(item) || i} item={item} itemUrl={getItemUrl(item)} {...wrapperCommon} >
 				<ListItem key={'li' + (getId(item) || i)} item={item} onClick={() => onClickItem(item)} {...itemCommon} />
 			</ListItemWrapper>
 		))}
@@ -392,7 +404,7 @@ const onPick = ({ event, navpage, id, customParams }) => {
 /**
  * checkbox, delete, on-click a wrapper
  */
-function ListItemWrapper({ item, type, checkboxes, canCopy, cannotClick, list, canDelete, servlet, navpage, children, notALink, itemClassName, unwrapped, onClickWrapper }) {
+function ListItemWrapper({ item, type, checkboxes, canCopy, cannotClick, list, canDelete, servlet, navpage, children, notALink, itemClassName, unwrapped, onClickWrapper, itemUrl }) {
 	if (unwrapped) {
 		return children;
 	}
@@ -401,7 +413,6 @@ function ListItemWrapper({ item, type, checkboxes, canCopy, cannotClick, list, c
 		console.error("ListLoad.jsx - " + type + " with no id", item);
 		return null;
 	}
-	let itemUrl = modifyPage([servlet, id], null, true);
 
 	let checkedPath = ['widget', 'ListLoad', type, 'checked'];
 

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Misc from "./Misc";
 import LoginButton, {LogoutButton} from "./LoginButtonAuth0";
+import Login from "../youagain";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
@@ -46,14 +47,15 @@ const Profile = () => {
 	return <div>not logged in</div>
   }
 
-  
+  useEffect(() => {
+	Login.user = user;
+  }, [user]);
 
   return (
       <div>
         <img src={user.picture} alt={user.name} />
         <h2>{user.name}</h2>
-        <p>{user.email}</p>
-		{userMetadata? <pre>{JSON.stringify(userMetadata, null, 2)}</pre> : null}
+        <p>{user.email}</p>		
       </div>    
   );
 };
