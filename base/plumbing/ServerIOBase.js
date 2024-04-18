@@ -31,7 +31,6 @@ ServerIO.NO_API_AT_THIS_HOST = false;
 // Init ENDPOINTS for typescript ??
 ServerIO.DATALOG_ENDPOINT = '';
 ServerIO.MEDIA_ENDPOINT = '';
-ServerIO.MEASURE_ENDPOINT = '';
 ServerIO.API_ENDPOINT = '';
 
 // const SOGIVE_SUBDOMAIN = { '': 'app', test: 'test', local: 'test', stage: 'stage'}[C.SERVER_TYPE];
@@ -46,12 +45,8 @@ ServerIO.ENDPOINT_TASK = 'https://calstat.good-loop.com/task';
 const endpoints = [
 	{name: 'base API', key: 'APIBASE', prodValue: ''},
 	{name: 'DataLog', key: 'DATALOG_ENDPOINT', base: 'lg.good-loop.com/data'},
-	{name: 'Profiler', key: 'PROFILER_ENDPOINT', base: 'profiler.good-loop.com'},
-	{name: 'Ad', key: 'AS_ENDPOINT', base: 'as.good-loop.com'},
 	/** Where uploads go */
 	{name: 'Media', key: 'MEDIA_ENDPOINT', base: 'uploads.good-loop.com'},
-	{name: 'Measure', key: 'MEASURE_ENDPOINT', base: 'measure.good-loop.com/measure'},
-	{name: 'Portal', key: 'PORTAL_ENDPOINT', base: 'portal.good-loop.com'},
 	{name: 'API', key: 'API_ENDPOINT', base: 'api.good-loop.com/v0'},
 ];
 // set defaults

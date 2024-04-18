@@ -112,7 +112,7 @@ function ListLoad({ type, status, servlet, navpage,
 	// TODO sometime hasCsv, csvFormatItem,
 	otherParams = {}
 }) {
-	console.log("render ListLoad");
+	// console.log("render ListLoad");
 	assert(C.TYPES.has(type), "ListLoad - odd type " + type);
 	if (!status) {
 		if (!list) console.error("ListLoad no status :( defaulting to ALL_BAR_TRASH", type);

@@ -299,7 +299,7 @@ export const mapkv = function (obj, fn) {
 };
 
 /**
- * Strip commas £/$/euro and parse float.
+ * Strip commas £/$/euro and parse float. % is stripped and the number is divided by 100 to give a fraction, e.g. 50% = 0.5.
  * @param {Number|String} v
  * @returns {?Number}. undefined/null/''/false/NaN are returned as undefined.
  * Bad inputs also return undefined (this makes for slightly simpler usage code
@@ -312,9 +312,18 @@ export const asNum = (v) => {
 	if (_.isNumber(v)) return v;
 	// strip any commas, e.g. 1,000
 	if (_.isString(v)) {
+		v = v.trim();
 		v = v.replace(/,/g, '');
 		// £ / $ / euro
 		v = v.replace(/^(-)?[£$\u20AC]/, '$1');
+		if (v.endsWith('%')) {
+			v = v.substring(0, v.length -1);
+			const nv = +v / 100;
+			if (Number.isNaN(nv)) {
+				return null; // bad string input
+			}
+			return nv;		
+		}
 	}
 	// See https://stackoverflow.com/questions/12227594/which-is-better-numberx-or-parsefloatx
 	const nv = +v;
