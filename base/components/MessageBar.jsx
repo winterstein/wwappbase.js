@@ -14,10 +14,11 @@ import { match } from '../utils/assert.js';
  *
  * This displays messages
  */
-function MessageBar() {
+function MessageBar() {	
 	// Retrieve messages & filter those intended for a particular page
-	let messages = Object.values(DataStore.getValue('misc', 'messages-for-user') || {})
-		.filter(m => m.path ? match(m.path, DataStore.getValue('location', 'path')) : true);
+	let messages = Object.values(DataStore.getValue('misc', 'messages-for-user') || {});
+	console.log("render MessageBar", messages);
+	messages = messages.filter(m => m.path ? match(m.path, DataStore.getValue('location', 'path')) : true);
 
 	if (messages && messages.length) {
 		// We're likely to get lots of messages on local and test.
