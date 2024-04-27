@@ -134,13 +134,7 @@ const checkBase2_toggleTestEndpoints = () => {
 	// Used by a few APIBASE instances
 	const unprefixedHostname = window.location.hostname.replace(/^(local|test|stage)?/, '');
 	if (server === 'test') {
-		ServerIO.AS_ENDPOINT = 'https://testas.good-loop.com';
-		ServerIO.PORTAL_ENDPOINT = 'https://testportal.good-loop.com';
 		ServerIO.DATALOG_ENDPOINT = 'https://testlg.good-loop.com/data';
-		ServerIO.PROFILER_ENDPOINT = 'https://testprofiler.good-loop.com';
-		ServerIO.MEDIA_ENDPOINT = 'https://testuploads.good-loop.com';
-		ServerIO.MEASURE_ENDPOINT = 'https://testmeasure.good-loop.com/measure';
-		// ServerIO.ENDPOINT_NGO = 'https://test.sogive.org/charity';
 		// hack for SoGive
 		if (ServerIO.APIBASE.includes("sogive")) {
 			ServerIO.APIBASE = 'https://test.sogive.org';
@@ -155,32 +149,17 @@ const checkBase2_toggleTestEndpoints = () => {
 	}
 	if (server === 'local') { // probably not needed
 		const protocol = window.location.protocol;
-		ServerIO.AS_ENDPOINT = protocol+'//localas.good-loop.com';
-		ServerIO.PORTAL_ENDPOINT = protocol+'//localportal.good-loop.com';
 		ServerIO.DATALOG_ENDPOINT = protocol+'//locallg.good-loop.com/data';
-		ServerIO.PROFILER_ENDPOINT = protocol+'//localprofiler.good-loop.com';
-		ServerIO.MEDIA_ENDPOINT = protocol+'//localuploads.good-loop.com';
-		ServerIO.MEASURE_ENDPOINT = protocol+'//localmeasure.good-loop.com/measure';
 		ServerIO.APIBASE = ''; // lets assume you're on local
 		return;
 	}
 	if (server === 'stage') {
-		ServerIO.AS_ENDPOINT = 'https://stageas.good-loop.com';
-		ServerIO.PORTAL_ENDPOINT = 'https://stageportal.good-loop.com';
 		ServerIO.DATALOG_ENDPOINT = 'https://stagelg.good-loop.com/data';
-		ServerIO.PROFILER_ENDPOINT = 'https://stageprofiler.good-loop.com';
-		ServerIO.MEDIA_ENDPOINT = 'https://stageuploads.good-loop.com';
-		ServerIO.MEASURE_ENDPOINT = 'https://stagemeasure.good-loop.com/measure';
 		ServerIO.APIBASE = `https://stage${unprefixedHostname}`; // ?? fix in a refactor
 		return;
 	}
 	if (server === 'production') {
-		ServerIO.AS_ENDPOINT = 'https://as.good-loop.com';
-		ServerIO.PORTAL_ENDPOINT = 'https://portal.good-loop.com';
 		ServerIO.DATALOG_ENDPOINT = 'https://lg.good-loop.com/data';
-		ServerIO.PROFILER_ENDPOINT = 'https://profiler.good-loop.com';
-		ServerIO.MEDIA_ENDPOINT = 'https://uploads.good-loop.com';
-		ServerIO.MEASURE_ENDPOINT = 'https://measure.good-loop.com/measure';
 		if (ServerIO.APIBASE) {
 			ServerIO.APIBASE = `https://${unprefixedHostname}`;
 		} else if (ServerIO.APIBASE === '' || ServerIO.APIBASE === '/') {

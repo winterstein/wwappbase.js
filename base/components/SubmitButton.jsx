@@ -19,8 +19,9 @@ import DataStore from '../plumbing/DataStore';
  * @param {?Boolean|string} p.confirmSubmit If set, show a confirm dialog
  * @param responsePath {?String[]} If set, the (JSend unwrapped) response data will be set in DataStore here.
  * @param onSuccess {JSX} TODO rename this! shown after a successful submit. This is not a function to call!
+ * @param {?Function} p.onResponse 
  */
-const SubmitButton = ({formData, path, url, responsePath, once, color='primary', className, onSuccess, onClick,
+const SubmitButton = ({formData, path, url, responsePath, once, color='primary', className, onResponse, onSuccess, onClick,
 	title='Submit the form', children, size, disabled, confirmSubmit}) => 
 {
 	assert(typeof url === 'string' || onClick instanceof Function, "Need submit url or onClick");
@@ -52,6 +53,7 @@ const SubmitButton = ({formData, path, url, responsePath, once, color='primary',
 						const resdata = JSend.data(res);
 						DataStore.setValue(responsePath, resdata);
 					}
+					if (onResponse) onResponse(res, formData);
 				}, err => {
 					setSubmitStatus(C.STATUS.dirty);
 				});

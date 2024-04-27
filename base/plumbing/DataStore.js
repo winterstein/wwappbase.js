@@ -325,8 +325,8 @@ class Store {
 		if (path.length===1 && _.isArray(path[0])) {
 			path = path[0];
 		}
-		assert(this.appstate[path[0]],
-			"DataStore.getValue: "+path[0]+" is not a json element in appstate - As a safety check against errors, the root element must already exist to use getValue()");
+		// assert(this.appstate[path[0]],
+		// 	"DataStore.getValue: "+path[0]+" is not a json element in appstate - As a safety check against errors, the root element must already exist to use getValue()");
 		return getObjectValueByPath(this.appstate, path);
 	}
 
@@ -350,8 +350,8 @@ class Store {
 	// TODO handle setValue(pathbit, pathbit, pathbit, value) too
 	setValue(path, value, update, options) {
 		assert(_.isArray(path), "DataStore.setValue: "+path+" is not an array.");
-		assert(this.appstate[path[0]],
-			"DataStore.setValue: "+path[0]+" is not a node in appstate - As a safety check against errors, the root node must already exist to use setValue()");
+		// assert(this.appstate[path[0]],
+		// 	"DataStore.setValue: "+path[0]+" is not a node in appstate - As a safety check against errors, the root node must already exist to use setValue()");
 		// console.log('DataStore.setValue', path, value);
 		const oldVal = this.getValue(path);
 		if (oldVal === value && update !== true && ! _.isObject(value)) {

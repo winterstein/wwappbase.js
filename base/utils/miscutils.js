@@ -1043,7 +1043,10 @@ export const getObjectValueByPath = (obj, path) => {
 	let tip = obj;
 	for(let pi=0; pi < path.length; pi++) {
 		let pkey = path[pi];
-		assert(pkey || pkey===0, "getObjectValueByPath falsy is not allowed in path: "+path); // no falsy in a path - except that 0 is a valid key
+		if (pkey===undefined || pkey===null || pkey==="") { 
+			console.error("(swallowed-error) getObjectValueByPath falsy is not allowed in path: "+path); // no falsy in a path - except that 0 is a valid key
+			return null;
+		}
 		let newTip = tip[pkey];
 		// Test for hard null -- falsy are valid values
 		if (newTip===null || newTip===undefined) return null;
