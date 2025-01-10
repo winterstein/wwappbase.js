@@ -1,6 +1,5 @@
 
 import JSend from '../data/JSend';
-import C from '../CBase';
 import _ from 'lodash';
 import PromiseValue from '../promise-value';
 
@@ -9,6 +8,17 @@ import { assert, assMatch } from '../utils/assert';
 import {parseHash, toTitleCase, is, space, yessy, getUrlVars, decURI, getObjectValueByPath, setObjectValueByPath, noVal} from '../utils/miscutils';
 import KStatus from '../data/KStatus';
 import { modifyPage } from './glrouter';
+
+
+/**
+ * STATUS enum
+ */
+// NB: weird compile errors with next.js + easy-enums, Oct 2024
+export const STATUS = 'loading clean dirty saving saveerror'
+	.split(' ').reduce((acc, status) => {
+		acc[status] = status;
+		return acc;
+	}, {});
 
 
 /**
@@ -202,7 +212,7 @@ class Store {
 		// end hack
 
 		assert(KStatus.has(status), "DataStore.getData bad status: "+status);
-		if ( ! C.TYPES.has(type)) console.warn("DataStore.getData bad type: "+type);
+		// if ( ! C.TYPES.has(type)) console.warn("DataStore.getData bad type: "+type);
 		assert(id, "DataStore.getData - No id?! getData "+type);
 		const s = this.nodeForStatus(status);
 		let item = this.getValue([s, type, id]);
@@ -231,7 +241,7 @@ class Store {
 		// end hack
 
 		assert(item && getType(item) && getId(item), item, "DataStore.js setData()");
-		assert(C.TYPES.has(getType(item)), item);
+		// assert(C.TYPES.has(getType(item)), item);
 
 		const path = this.getPathForItem(status, item);
 		this.setValue(path, item, update);
@@ -268,7 +278,7 @@ class Store {
 			status=KStatus.DRAFT;
 		} 
 		if ( ! type) type = getType(restOfItem);
-		assert(C.TYPES.has(type), "DataStore.js bad type: "+type);
+		// assert(C.TYPES.has(type), "DataStore.js bad type: "+type);
 		assMatch(id, String, "DataStore.js bad id "+id);
 		const s = this.nodeForStatus(status);
 		if (domain) {
@@ -394,7 +404,8 @@ class Store {
 			const itemPath = path.slice(0, 3);
 			const item = this.getValue(itemPath);
 			if (getType(item) && getId(item)) {
-				this.setLocalEditsStatus(getType(item), getId(item), C.STATUS.dirty, false);
+				this.setLocalEditsStatus(getType(item), getId(item), 
+				STATUS.dirty, false);
 			}
 		}
 		// Tell e.g. React to re-render

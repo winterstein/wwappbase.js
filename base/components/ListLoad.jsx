@@ -5,7 +5,6 @@ import { Button, Card, CardBody, Form, Pagination, PaginationItem, PaginationLin
 import { assert, assMatch } from '../utils/assert';
 
 import { ellipsize, is, space, stopEvent, yessy } from '../utils/miscutils';
-import C from '../CBase';
 import Misc from './Misc';
 import PropControl from './PropControl';
 import DataStore, { Item, Ref } from '../plumbing/DataStore';
@@ -113,7 +112,7 @@ function ListLoad({ type, status, servlet, navpage,
 	otherParams = {}
 }) {
 	// console.log("render ListLoad");
-	assert(C.TYPES.has(type), "ListLoad - odd type " + type);
+	// assert(C.TYPES.has(type), "ListLoad - odd type " + type);
 	if (!status) {
 		if (!list) console.error("ListLoad no status :( defaulting to ALL_BAR_TRASH", type);
 		status = KStatus.ALL_BAR_TRASH;

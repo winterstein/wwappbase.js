@@ -1,6 +1,7 @@
 'use strict';
-import Enum from 'easy-enums';
-import Roles from './Roles';
+
+// import Enum from 'easy-enums';
+// import Roles from './Roles';
 import DataStore from './plumbing/DataStore';
 import KStatus from './data/KStatus';
 
@@ -26,6 +27,16 @@ C.app =
 };
 
 // Below here: apps should leave as-is
+
+// easy-enums vs nextjs weird install/compile bug Oct 2024
+const Enum = (name, values) => {
+    const enumObj = {};
+    values.split(' ').forEach(value => {
+        enumObj[value] = value;
+    });
+    enumObj.values = Object.values(enumObj);
+    return enumObj;
+};
 
 /**
  * This is usually overwritten.

@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 import { assert, assMatch, match } from '../utils/assert';
-import C from '../CBase';
 import DataStore, { getDataPath, getListPath } from './DataStore';
 import DataClass, {getId, getName, getType, nonce} from '../data/DataClass';
 import JSend from '../data/JSend';
@@ -20,6 +19,7 @@ import Person from '../data/Person';
 import PromiseValue from '../promise-value';
 import SearchQuery from '../searchquery';
 
+export const NEW_ID = 'new';
 
 /**
  * @param {Object} p
@@ -32,8 +32,8 @@ const crud = ({type, id, domain, status, action, item, previous, swallow, localS
 	if ( ! type) type = getType(item);
 	if ( ! id) id = getId(item);
 	assMatch(id, String);
-	assert(C.TYPES.has(type), type);
-	assert(C.CRUDACTION.has(action), "unrecognised action "+action+" for type "+type);
+	// assert(C.TYPES.has(type), type);
+	// assert(C.CRUDACTION.has(action), "unrecognised action "+action+" for type "+type);
 	if ( ! status) status = startStatusForAction(action);
 	let localStorageUsed;
 	if ( ! item) { 
@@ -61,7 +61,7 @@ const crud = ({type, id, domain, status, action, item, previous, swallow, localS
 		item['@type'] = type;
 	}
 	// new item? then change the action
-	if (id===C.newId && action==='save') {
+	if (id===NEW_ID && action==='save') {
 		action = 'new';
 	}
 
@@ -94,7 +94,7 @@ const crud = ({type, id, domain, status, action, item, previous, swallow, localS
 				}
 			}
 			// mark the object as error
-			DataStore.setLocalEditsStatus(type, id, C.STATUS.saveerror);
+			DataStore.setLocalEditsStatus(type, id, STATUS.saveerror);
 			// and log an error relating to it
 			DataStore.setValue(errorPath({type, id, action}), msg);
 			return err;
@@ -188,8 +188,8 @@ const applyPatch = (freshItem, recentLocalDiffs, item, itemBefore) => {
  * @returns {?DataClass} Item null on error
  */
 const crud2_processResponse = ({res, item, itemBefore, id, action, type, localStorage, diffSave}) => {
-	const pubpath = DataStore.getPathForItem(C.KStatus.PUBLISHED, item);
-	const draftpath = DataStore.getPathForItem(C.KStatus.DRAFT, item);
+	const pubpath = DataStore.getPathForItem(KStatus.PUBLISHED, item);
+	const draftpath = DataStore.getPathForItem(KStatus.DRAFT, item);
 	const navtype = (C.navParam4type? C.navParam4type[type] : null) || type;
 
 	// Update DS with the returned item, but only if the crud action went OK
@@ -298,7 +298,7 @@ ActionMan.saveEdits = saveEdits;
 	if ( ! oldId) oldId = getId(item);
 	// deep copy
 	let newItem = JSON.parse(JSON.stringify(item));
-	newItem.status = C.KStatus.DRAFT; // ensure its a draft 
+	newItem.status = KStatus.DRAFT; // ensure its a draft 
 	// parentage
 	newItem.parent = oldId;
 	// modify
@@ -322,7 +322,7 @@ ActionMan.saveEdits = saveEdits;
 	}
 
 	// save local
-	DataStore.setData(C.KStatus.DRAFT, newItem);
+	DataStore.setData(KStatus.DRAFT, newItem);
 	// save server
 	let pv = crud({type, id:newId, action:'copy', item:newItem});
 	pv.promise.then(x => {
@@ -370,7 +370,7 @@ export const publish = ({type, id, item, swallow}) => {
 	assMatch(id, String, `Crud.js publish(): no id ${type}`);
 
 	// No item provided? Draft should be available.
-	if (!item) item = DataStore.getData({status: C.KStatus.DRAFT, type, id});
+	if (!item) item = DataStore.getData({status: KStatus.DRAFT, type, id});
 	assert(item, `Crud.js publish(): no item provided or in store ${type} ${id}`);
 
 	// optimistic list mod
@@ -405,7 +405,7 @@ const preCrudListMod = ({type, id, item, action}) => {
 	// TODO invalidate any (other) cached list of this type (eg filtered lists may now be out of date)
 	// Optimistic: add to the published list (if there is one - but dont make one as that could confuse things)
 	if (C.CRUDACTION.ispublish(action)) {
-		[C.KStatus.PUBLISHED, C.KStatus.ALL_BAR_TRASH].forEach(status => {
+		[KStatus.PUBLISHED, KStatus.ALL_BAR_TRASH].forEach(status => {
 			const path = getListPath({type, status});
 			const list = DataStore.getValue(path);
 			if (!list) return;
@@ -419,7 +419,7 @@ const preCrudListMod = ({type, id, item, action}) => {
 	// delete => optimistic remove
 	if (C.CRUDACTION.isdelete(action)) {
 		if ( ! item) item = {type, id};
-		[C.KStatus.PUBLISHED, C.KStatus.DRAFT, C.KStatus.ALL_BAR_TRASH].forEach(status => {
+		[KStatus.PUBLISHED, KStatus.DRAFT, KStatus.ALL_BAR_TRASH].forEach(status => {
 			// NB: see getListPath for format, which is [list, type, status, domain, query, sort]
 			let domainQuerySortList = DataStore.getValue('list', type, status); 
 			let cnt = recursivePruneFromTreeOfLists(item, domainQuerySortList);
@@ -477,8 +477,8 @@ ActionMan.delete = (type, pubId) => {
 	return PromiseValue.then(pv, e => {
 		console.warn("deleted!", type, pubId, e);
 		// remove the local versions
-		DataStore.setValue(getDataPath({status: C.KStatus.PUBLISHED, type, id: pubId}), null);
-		DataStore.setValue(getDataPath({status: C.KStatus.DRAFT, type, id: pubId}), null);
+		DataStore.setValue(getDataPath({status: KStatus.PUBLISHED, type, id: pubId}), null);
+		DataStore.setValue(getDataPath({status: KStatus.DRAFT, type, id: pubId}), null);
 		// invalidate any cached list of this type
 		DataStore.invalidateList(type);
 		return e;
@@ -513,11 +513,11 @@ const startStatusForAction = (action) => {
 		case C.CRUDACTION.discardEdits:
 		case C.CRUDACTION.unpublish: // is this OK?? It could be applied to either
 		case C.CRUDACTION.delete: // this one shouldn't matter
-			return C.KStatus.DRAFT;
+			return KStatus.DRAFT;
 		case C.CRUDACTION.export:
 		case C.CRUDACTION.getornew:
 		case C.CRUDACTION.get: // get="get the published version"
-			return C.KStatus.PUBLISHED;
+			return KStatus.PUBLISHED;
 	}
 	throw new Error("TODO startStatusForAction "+action);
 };
@@ -532,15 +532,15 @@ const serverStatusForAction = (action) => {
 		case C.CRUDACTION.save:
 		case C.CRUDACTION.discardEdits:
 		case C.CRUDACTION.delete: // this one shouldn't matter
-			return C.KStatus.DRAFT;
+			return KStatus.DRAFT;
 		case C.CRUDACTION.publish:
 		case C.CRUDACTION.export:
 		case C.CRUDACTION.get: // get="get the published version"
-			return C.KStatus.PUBLISHED;
+			return KStatus.PUBLISHED;
 		case C.CRUDACTION.unpublish:
-			return C.KStatus.DRAFT;
+			return KStatus.DRAFT;
 		case C.CRUDACTION.archive:
-			return C.KStatus.ARCHIVED;
+			return KStatus.ARCHIVED;
 	}
 	throw new Error("TODO serverStatusForAction "+action);
 };
@@ -681,7 +681,7 @@ ActionMan.getDataItem = getDataItem;
  */
 ActionMan.refreshDataItem = ({type, id, status, domain, ...other}) => {
 	console.log("refreshing...", status, type, id);
-	assert(C.KStatus.has(status), "Crud.js bad status "+status);
+	assert(KStatus.has(status), "Crud.js bad status "+status);
 	assert(C.TYPES.has(type), 'Crud.js - ActionMan refreshDataItem - bad type: '+type);
 	assMatch(id, String);
 	return SIO_getDataItem({type, id, status, domain, ...other})
@@ -853,7 +853,7 @@ ServerIO.list = ({type, status, q, prefix, start, end, size, sort, domain = '', 
 	assert(C.TYPES.has(type), 'Crud.js - ServerIO.list - bad type:' +type);
 	assert( ! other.query, "Use q not query");
 	let servlet = ServerIO.getEndpointForType(type);
-	assert(C.KStatus.has(status), 'Crud.js - ServerIO.list - bad status: '+status);
+	assert(KStatus.has(status), 'Crud.js - ServerIO.list - bad status: '+status);
 
 	let url = domain + servlet 
 		+ (ServerIO.dataspace && type!=='NGO'? '/'+ServerIO.dataspace : '')	// HACK: no dataspace for SoGive

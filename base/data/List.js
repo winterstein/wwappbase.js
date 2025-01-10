@@ -12,7 +12,6 @@
 */
 import { assert, assMatch } from '../utils/assert';
 import DataClass, {getType, getId, nonce} from './DataClass';
-import C from '../CBase';
 import { Item } from '../plumbing/DataStore';
 
 /**

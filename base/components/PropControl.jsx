@@ -29,7 +29,6 @@ import { luminanceFromHex } from './Colour';
 import DataClass, { nonce } from '../data/DataClass';
 
 import { countryListAlpha2 } from '../data/CountryRegion';
-import C from '../CBase';
 
 import PropControl_PopUpButton from './propcontrols/PropControl_PopUpButton';
 import PropControl_Modal from './propcontrols/PropControl_Modal';

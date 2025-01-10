@@ -14,7 +14,6 @@ import DataStore from '../plumbing/DataStore';
 import ServerIO from '../plumbing/ServerIOBase';
 import printer from '../utils/printer';
 import {LoginLink} from './LoginWidget';
-import C from '../CBase';
 import Money from '../data/Money';
 
 import { getId} from '../data/DataClass';

@@ -1,5 +1,4 @@
 import React from 'react';
-import C from '../CBase';
 import { space, randomPick } from '../utils/miscutils';
 
 /**
@@ -87,9 +86,9 @@ function Icon({name,size="sm",className,color,...props}) {
 		return SVG[name]; // ??color size as style
 	}
 	let url;
-	if (name === C.app.id) {
-		url = C.app.logo;
-	}
+	// if (name === C.app.id) {
+	// 	url = C.app.logo;
+	// }
 	// Social media
 	if ('twitter facebook instagram chrome edge google-sheets github linkedin safari'.indexOf(name) !== -1) {
 		url = '/img/gl-logo/external/' + name + '-logo.svg';
